@@ -4,20 +4,21 @@ ControlP5 cp5;
 static int colorH,colorS,colorV;
 static int colorC,colorM,colorY,colorK;
 static int colorR,colorG,colorB;
-String textValue = "";
+
+int dim=50;
+int linha1=50;
+int linha2= linha1+70;
+int linha3=linha2+70;
 
 void setup() {
-  size(700,400);
-  int linha1=50;
-  int linha2= linha1+70;
-  int linha3=linha2+70;
+  size(530,280);
   PFont font = createFont("arial",20);
   //PImage[] imgs = {loadImage("button_a.png"),loadImage("button_b.png"),loadImage("button_c.png")};
   
   cp5 = new ControlP5(this);
                  
   // TextFields do RGB
-  cp5.addTextfield("red").setPosition(20,linha1).setSize(50,50).setFont(createFont("tahoma",25)).setFocus(true).setCaptionLabel("red").setAutoClear(false);
+  cp5.addTextfield("red").setPosition(20,linha1).setSize(50,50).setFont(createFont("tahoma",25)).setFocus(true).setCaptionLabel("red").setAutoClear(false).setInputFilter(cp5.INTEGER);
   
   cp5.addTextfield("green").setPosition(100,linha1).setSize(50,50).setFont(createFont("tahoma",25)).setCaptionLabel("green").setAutoClear(false);
    
@@ -49,9 +50,12 @@ void setup() {
 }
 
 void draw() {
-  background(4);
+  background(0,0,0);
   //fill(255);
   //text(textValue, 360,180);
+  stroke(255);
+  fill(colorR,colorG,colorB);
+  rect(450, linha1, dim, linha3);
 }
 
 public void preenchaHSV(){
@@ -82,6 +86,9 @@ public void converterRGB(){
   RGBtoHSV(red,green,blue);
   preenchaHSV();
   preenchaCMYK();
+  colorR=(int)red;
+  colorG=(int)green;
+  colorB=(int)blue;
 }
 
 public void converterHSV(){
